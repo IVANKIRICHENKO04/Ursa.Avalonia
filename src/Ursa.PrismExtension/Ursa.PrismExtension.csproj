@@ -12,12 +12,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Ursa\Ursa.csproj"/>
+        <ProjectReference Include="..\Ursa\Ursa.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Prism.Core" Version="8.1.97"/>
-        <None Include="irihi.png" Pack="true" PackagePath=""/>
+        <PackageReference Include="Prism.Core" Version="8.1.97" />
     </ItemGroup>
 
 </Project>
