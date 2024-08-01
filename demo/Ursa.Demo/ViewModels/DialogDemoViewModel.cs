@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Ursa.Common;
 using Ursa.Controls;
 using Ursa.Demo.Dialogs;
-using Ursa.Demo.Pages;
 
 namespace Ursa.Demo.ViewModels;
 
@@ -27,6 +25,25 @@ public partial class DialogDemoViewModel: ObservableObject
     [ObservableProperty] private DateTime? _date;
     [ObservableProperty] private bool _fullScreen;
     [ObservableProperty] private bool _showInTaskBar;
+
+    public ObservableCollection<DialogButton> DialogButtons =>
+    [
+        DialogButton.None,
+        DialogButton.OK,
+        DialogButton.OKCancel,
+        DialogButton.YesNo,
+        DialogButton.YesNoCancel,
+    ];
+
+    public ObservableCollection<DialogMode> DialogModes =>
+    [
+        DialogMode.Info,
+        DialogMode.Warning,
+        DialogMode.Error,
+        DialogMode.Question,
+        DialogMode.None,
+        DialogMode.Success,
+    ];
     
     public DialogDemoViewModel()
     {

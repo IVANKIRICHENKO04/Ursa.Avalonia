@@ -2,7 +2,6 @@
     x:Class="Ursa.Demo.Pages.DrawerDemo"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="clr-namespace:Ursa.Common;assembly=Ursa"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:u="https://irihi.tech/ursa"
@@ -16,7 +15,7 @@
         <TabControl Grid.Column="0" Width="300">
             <TabItem Header="Default">
                 <StackPanel>
-                    <u:EnumSelector EnumType="common:Position" Value="{Binding SelectedPosition}" />
+                    <ComboBox ItemsSource="{Binding Positions}" SelectedValue="{Binding SelectedPosition}" />
                     <ToggleSwitch
                         Content="Global/Local"
                         IsChecked="{Binding IsGlobal}"
@@ -34,7 +33,7 @@
                         OnContent="Yes" />
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Buttons" />
-                        <u:EnumSelector EnumType="{x:Type u:DialogButton}" Value="{Binding SelectedButton}" />
+                        <ComboBox ItemsSource="{Binding DialogButtons}" SelectedValue="{Binding SelectedButton}" />
                     </StackPanel>
                     <Button Command="{Binding ShowDialogCommand}" Content="Show Default Drawer" />
                     <TextBlock>
@@ -49,7 +48,7 @@
             </TabItem>
             <TabItem Header="Custom">
                 <StackPanel>
-                    <u:EnumSelector EnumType="common:Position" Value="{Binding SelectedPosition}" />
+                    <ComboBox ItemsSource="{Binding Positions}" SelectedValue="{Binding SelectedPosition}" />
                     <ToggleSwitch
                         Content="Global/Local"
                         IsChecked="{Binding IsGlobal}"

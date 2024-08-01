@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
-using Ursa.Common;
 
 namespace Ursa.Controls;
 
@@ -196,7 +195,7 @@ public static class OverlayDialog
             control.HorizontalAnchor == HorizontalPosition.Center ? null : options.HorizontalOffset;
         control.VerticalOffset =
             options.VerticalAnchor == VerticalPosition.Center ? null : options.VerticalOffset;
-        control.IsCloseButtonVisible = options.ShowCloseButton;
+        control.IsCloseButtonVisible = options.IsCloseButtonVisible;
         control.CanLightDismiss = options.CanLightDismiss;
         DialogControlBase.SetCanDragMove(control, options.CanDragMove);
     }
