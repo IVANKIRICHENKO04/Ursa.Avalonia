@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Ursa.Demo.ViewModels;
 
-public partial class FormDemoViewModel: ObservableObject
+public partial class FormDemoViewModel : ObservableObject
 {
     [ObservableProperty] private DataModel _model;
 
@@ -16,33 +16,35 @@ public partial class FormDemoViewModel: ObservableObject
 
 public partial class DataModel : ObservableObject
 {
-    private string _name;
+    private string _name = string.Empty;
 
     [MinLength(10)]
     public string Name
     {
-        get=>_name;
+        get => _name;
         set => SetProperty(ref _name, value);
     }
 
     private double _number;
+
     [Range(0.0, 10.0)]
     public double Number
     {
         get => _number;
         set => SetProperty(ref _number, value);
     }
-    
-    private string _email;
-    
+
+    private string _email = string.Empty;
+
     [EmailAddress]
     public string Email
     {
-        get=>_email;
+        get => _email;
         set => SetProperty(ref _email, value);
     }
 
     private DateTime _date;
+
     public DateTime Date
     {
         get => _date;

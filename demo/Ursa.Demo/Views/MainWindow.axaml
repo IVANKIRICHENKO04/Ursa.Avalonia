@@ -18,9 +18,7 @@
   
   
     <u:UrsaWindow.RightContent>
-        <u:ThemeToggleButton
-            IsThreeState="True"
-            Mode="Controller" />
+        <views:TitleBarRightContent/>        
     </u:UrsaWindow.RightContent>
   
   

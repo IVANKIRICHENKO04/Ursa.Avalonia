@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Avalonia.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Ursa.Controls;
 
 namespace Ursa.Demo.ViewModels;
 
-public partial class VerificationCodeDemoViewModel: ObservableObject
+public partial class PinCodeDemoViewModel: ObservableObject
 {
     public ICommand CompleteCommand { get; set; }
     [ObservableProperty] private List<Exception>? _error;
 
-    public VerificationCodeDemoViewModel()
+    public PinCodeDemoViewModel()
     {
         CompleteCommand = new AsyncRelayCommand<IList<string>>(OnComplete);
         Error = [new Exception("Invalid verification code")];

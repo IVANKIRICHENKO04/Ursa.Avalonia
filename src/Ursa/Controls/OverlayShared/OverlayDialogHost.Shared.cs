@@ -19,21 +19,14 @@ public partial class OverlayDialogHost: Canvas
 
     private readonly List<DialogPair> _layers = new List<DialogPair>(10);
     
-    private class DialogPair
+    private class DialogPair(PureRectangle? mask, OverlayFeedbackElement element, bool modal = true)
     {
-        internal PureRectangle? Mask;
-        internal OverlayFeedbackElement Element;
-        internal bool Modal;
-
-        public DialogPair(PureRectangle? mask, OverlayFeedbackElement element, bool modal = true)
-        {
-            Mask = mask;
-            Element = element;
-            Modal = modal;
-        }
+        internal readonly PureRectangle? Mask = mask;
+        internal readonly OverlayFeedbackElement Element = element;
+        internal readonly bool Modal = modal;
     }
 
-    private int _modalCount = 0;
+    private int _modalCount;
 
     public static readonly AttachedProperty<bool> IsModalStatusScopeProperty =
         AvaloniaProperty.RegisterAttached<OverlayDialogHost, Control, bool>("IsModalStatusScope");
@@ -73,8 +66,10 @@ public partial class OverlayDialogHost: Canvas
     
     private static Animation CreateOpacityAnimation(bool appear)
     {
-        var animation = new Animation();
-        animation.FillMode = FillMode.Forward;
+        var animation = new Animation
+        {
+            FillMode = FillMode.Forward
+        };
         var keyFrame1 = new KeyFrame{ Cue = new Cue(0.0) };
         keyFrame1.Setters.Add(new Setter() { Property = OpacityProperty, Value = appear ? 0.0 : 1.0 });
         var keyFrame2 = new KeyFrame{ Cue = new Cue(1.0) };
@@ -119,10 +114,30 @@ public partial class OverlayDialogHost: Canvas
         {
             rec.AddHandler(PointerReleasedEvent, ClickMaskToCloseDialog);
         }
+        else
+        {
+            rec.AddHandler(PointerPressedEvent, DragMaskToMoveWindow);
+        }
         return rec;
     }
-    
-    private void ClickMaskToCloseDialog(object sender, PointerReleasedEventArgs e)
+
+    private void DragMaskToMoveWindow(object? sender, PointerPressedEventArgs e)
+    {
+        if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            return;
+        }
+        if (sender is PureRectangle mask)
+        {
+            var window = this.GetVisualAncestors().OfType<Window>().FirstOrDefault();
+            if(window is not null)
+            {
+                window.BeginMoveDrag(e);
+            }
+        }
+    }
+
+    private void ClickMaskToCloseDialog(object? sender, PointerReleasedEventArgs e)
     {
         if (sender is PureRectangle border)
         {
@@ -131,6 +146,7 @@ public partial class OverlayDialogHost: Canvas
             {
                 layer.Element.Close();
                 border.RemoveHandler(PointerReleasedEvent, ClickMaskToCloseDialog);
+                border.RemoveHandler(PointerPressedEvent, DragMaskToMoveWindow);
             }
         }
     }
@@ -209,9 +225,8 @@ public partial class OverlayDialogHost: Canvas
     internal IDataTemplate? GetDataTemplate(object? o)
     {
         if (o is null) return null;
-        IDataTemplate? result = null;
         var templates = this.DialogDataTemplates;
-        result = templates.FirstOrDefault(a => a.Match(o));
+        var result = templates.FirstOrDefault(a => a.Match(o));
         if (result != null) return result;
         var keys = this.Resources.Keys;
         foreach (var key in keys)

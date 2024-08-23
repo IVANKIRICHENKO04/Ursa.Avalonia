@@ -2,7 +2,6 @@
 
 namespace Ursa.Demo.ViewModels;
 
-public class IconButtonDemoViewModel: ObservableObject
+public class IconButtonDemoViewModel : ObservableObject
 {
-    
 }

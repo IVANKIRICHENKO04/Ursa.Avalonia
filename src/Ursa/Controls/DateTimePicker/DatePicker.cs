@@ -23,7 +23,6 @@ public class DatePicker: DatePickerBase, IClearControl
     public const string PART_TextBox = "PART_TextBox";
     public const string PART_Calendar = "PART_Calendar";
     private Button? _button;
-    private Popup? _popup;
     private TextBox? _textBox;
     private CalendarView? _calendar;
 
@@ -53,16 +52,7 @@ public class DatePicker: DatePickerBase, IClearControl
 
     private void OnSelectionChanged(AvaloniaPropertyChangedEventArgs<DateTime?> args)
     {
-        if (args.NewValue.Value is null)
-        {
-            _calendar?.ClearSelection();
-            _textBox?.Clear();
-        }
-        else
-        {
-            _calendar?.MarkDates(startDate: args.NewValue.Value, endDate: args.NewValue.Value);
-            _textBox?.SetValue(TextBox.TextProperty, args.NewValue.Value.Value.ToString(DisplayFormat ?? "yyyy-MM-dd"));
-        }
+        SyncSelectedDateToText(args.NewValue.Value);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -79,7 +69,7 @@ public class DatePicker: DatePickerBase, IClearControl
         }
         
         _button = e.NameScope.Find<Button>(PART_Button);
-        _popup = e.NameScope.Find<Popup>(PART_Popup);
+        e.NameScope.Find<Popup>(PART_Popup);
         _textBox = e.NameScope.Find<TextBox>(PART_TextBox);
         _calendar = e.NameScope.Find<CalendarView>(PART_Calendar);
         
@@ -92,21 +82,22 @@ public class DatePicker: DatePickerBase, IClearControl
         {
             _calendar.DateSelected += OnDateSelected;
         }
+        SyncSelectedDateToText(SelectedDate);
     }
 
-    private void OnDateSelected(object sender, CalendarDayButtonEventArgs e)
+    private void OnDateSelected(object? sender, CalendarDayButtonEventArgs e)
     {
         SetCurrentValue(SelectedDateProperty, e.Date);
         SetCurrentValue(IsDropdownOpenProperty, false);
     }
 
-    private void OnButtonClick(object sender, RoutedEventArgs e)
+    private void OnButtonClick(object? sender, RoutedEventArgs e)
     {
         Focus(NavigationMethod.Pointer);
         SetCurrentValue(IsDropdownOpenProperty, !IsDropdownOpen);
     }
 
-    private void OnTextBoxPointerPressed(object sender, PointerPressedEventArgs e)
+    private void OnTextBoxPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (_calendar is not null)
         {
@@ -118,9 +109,23 @@ public class DatePicker: DatePickerBase, IClearControl
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void OnTextChanged(object sender, TextChangedEventArgs e)
+    private void OnTextChanged(object? sender, TextChangedEventArgs e)
     {
         SetSelectedDate(true);
+    }
+    
+    private void SyncSelectedDateToText(DateTime? date)
+    {
+        if (date is null)
+        {
+            _textBox?.SetValue(TextBox.TextProperty, null);
+            _calendar?.ClearSelection();
+        }
+        else
+        {
+            _textBox?.SetValue(TextBox.TextProperty, date.Value.ToString(DisplayFormat ?? "yyyy-MM-dd"));
+            _calendar?.MarkDates(startDate: date.Value, endDate: date.Value);
+        }
     }
 
     private void SetSelectedDate(bool fromText = false)
@@ -146,7 +151,6 @@ public class DatePicker: DatePickerBase, IClearControl
                 SetCurrentValue(SelectedDateProperty, date);
                 if (_calendar is not null)
                 {
-                    var d = SelectedDate ?? DateTime.Today;
                     _calendar.ContextDate = _calendar.ContextDate.With(year: date.Year, month: date.Month);
                     _calendar.UpdateDayButtons();
                 }
@@ -164,7 +168,7 @@ public class DatePicker: DatePickerBase, IClearControl
         }
     }
 
-    private void OnTextBoxGetFocus(object sender, GotFocusEventArgs e)
+    private void OnTextBoxGetFocus(object? sender, GotFocusEventArgs e)
     {
         if (_calendar is not null)
         {

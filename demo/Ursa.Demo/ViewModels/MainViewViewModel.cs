@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using System;
+using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Ursa.Demo.ViewModels;
 
@@ -25,6 +27,7 @@ public class MainViewViewModel : ViewModelBase
         Content = s switch
         {
             MenuKeys.MenuKeyIntroduction => new IntroductionDemoViewModel(),
+            MenuKeys.MenuKeyAutoCompleteBox => new AutoCompleteBoxDemoViewModel(),
             MenuKeys.MenuKeyAvatar => new AvatarDemoViewModel(),
             MenuKeys.MenuKeyBadge => new BadgeDemoViewModel(),
             MenuKeys.MenuKeyBanner => new BannerDemoViewModel(),
@@ -66,7 +69,8 @@ public class MainViewViewModel : ViewModelBase
             MenuKeys.MenuKeyThemeToggler => new ThemeTogglerDemoViewModel(),
             MenuKeys.MenuKeyToolBar => new ToolBarDemoViewModel(),
             MenuKeys.MenuKeyTimeBox => new TimeBoxDemoViewModel(),
-            MenuKeys.MenuKeyVerificationCode => new VerificationCodeDemoViewModel(),
+            MenuKeys.MenuKeyPinCode => new PinCodeDemoViewModel(),
+            _ => throw new ArgumentOutOfRangeException(nameof(s), s, null)
         };
     }
 }
