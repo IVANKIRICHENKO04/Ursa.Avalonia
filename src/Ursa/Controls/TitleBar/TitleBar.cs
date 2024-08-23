@@ -29,6 +29,15 @@ public class TitleBar: ContentControl
         get => GetValue(RightContentProperty);
         set => SetValue(RightContentProperty, value);
     }
+
+    public static readonly StyledProperty<bool> IsTitleVisibleProperty = AvaloniaProperty.Register<TitleBar, bool>(
+        nameof(IsTitleVisible));
+
+    public bool IsTitleVisible
+    {
+        get => GetValue(IsTitleVisibleProperty);
+        set => SetValue(IsTitleVisibleProperty, value);
+    }
     
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -63,22 +72,10 @@ public class TitleBar: ContentControl
 
     private void OnDoubleTapped(object? sender, TappedEventArgs e)
     {
-        if (_visualRoot is not null)
-        {
-            if ( _visualRoot.WindowState == WindowState.FullScreen)
-            {
-                return;
-            }
-
-            if (_visualRoot.WindowState == WindowState.Maximized)
-            {
-                _visualRoot.WindowState = WindowState.Normal;
-            }
-            else
-            {
-                _visualRoot.WindowState = WindowState.Maximized;
-            }
-        }
+        if (_visualRoot is null) return;
+        if (!_visualRoot.CanResize) return;
+        if ( _visualRoot.WindowState == WindowState.FullScreen) return;
+        _visualRoot.WindowState = _visualRoot.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
     }
 
     private void UpdateSize(Window window)
