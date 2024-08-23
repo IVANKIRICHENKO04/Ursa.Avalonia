@@ -6,6 +6,8 @@ namespace Ursa.Controls;
 
 public static class MessageBox
 {
+
+
     public static async Task<MessageBoxResult> ShowAsync(
         string message,
         string? title = null,
@@ -31,6 +33,8 @@ public static class MessageBox
         return result;
     }
 
+
+
     public static async Task<MessageBoxResult> ShowAsync(
         Window owner,
         string message,
@@ -47,6 +51,9 @@ public static class MessageBox
         var result = await messageWindow.ShowDialog<MessageBoxResult>(owner);
         return result;
     }
+
+
+
 
     public static async Task<MessageBoxResult> ShowOverlayAsync(
         string message,

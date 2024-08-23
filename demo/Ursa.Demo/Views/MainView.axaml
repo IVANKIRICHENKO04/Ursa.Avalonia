@@ -16,6 +16,7 @@
     <Design.DataContext>
         <vm:MainViewViewModel />
     </Design.DataContext>
+  
     <UserControl.Resources>
         <converters:IconNameToPathConverter x:Key="IconConverter" />
     </UserControl.Resources>
@@ -42,6 +43,7 @@
                             <Setter Property="IsSeparator" Value="{Binding IsSeparator}"></Setter>
                         </Style>
                     </u:NavMenu.Styles>
+                  
                     <u:NavMenu.IconTemplate>
                         <DataTemplate x:DataType="x:String">
                             <u:TwoTonePathIcon
@@ -55,6 +57,7 @@
                                 StrokeBrush="{DynamicResource SemiGrey5}" />
                         </DataTemplate>
                     </u:NavMenu.IconTemplate>
+                  
                     <u:NavMenu.HeaderTemplate>
                         <DataTemplate x:DataType="vm:MenuItemViewModel">
                             <StackPanel Orientation="Horizontal">
@@ -67,6 +70,7 @@
                             </StackPanel>
                         </DataTemplate>
                     </u:NavMenu.HeaderTemplate>
+                  
                     <u:NavMenu.Header>
                         <DockPanel HorizontalAlignment="Center" Margin="8">
                             <Image
