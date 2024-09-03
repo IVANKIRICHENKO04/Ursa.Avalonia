@@ -12,7 +12,7 @@ public static class MessageBox
         string message,
         string? title = null,
         MessageBoxIcon icon = MessageBoxIcon.None,
-        MessageBoxButton button = MessageBoxButton.OKCancel)
+        MessageBoxButton button = MessageBoxButton.OK)
     {
         var messageWindow = new MessageBoxWindow(button)
         {
@@ -40,7 +40,7 @@ public static class MessageBox
         string message,
         string title,
         MessageBoxIcon icon = MessageBoxIcon.None,
-        MessageBoxButton button = MessageBoxButton.OKCancel)
+        MessageBoxButton button = MessageBoxButton.OK)
     {
         var messageWindow = new MessageBoxWindow(button)
         {
@@ -60,7 +60,7 @@ public static class MessageBox
         string? title = null,
         string? hostId = null,
         MessageBoxIcon icon = MessageBoxIcon.None,
-        MessageBoxButton button = MessageBoxButton.OKCancel,
+        MessageBoxButton button = MessageBoxButton.OK,
         int? toplevelHashCode = null)
     {
         var host = OverlayDialogManager.GetHost(hostId, toplevelHashCode);
