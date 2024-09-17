@@ -19,6 +19,7 @@
             <ControlTemplate TargetType="u:CustomDialogControl">
                 <Border
                     Name="PART_Border"
+                    Focusable="True"
                     Padding="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -152,6 +153,7 @@
                 <Border
                     Name="PART_Border"
                     Padding="0"
+                    Focusable="True"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
                     BoxShadow="0 0 8 0 #1A000000"
@@ -471,7 +473,11 @@
             <ControlTemplate TargetType="u:DialogWindow">
                 <Panel>
                     <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-                    <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+                    <Border Background="{TemplateBinding Background}"
+                            BackgroundSizing="InnerBorderEdge"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            IsHitTestVisible="False"  />
                     <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
                     <VisualLayerManager>
                         <Grid RowDefinitions="Auto, *">
@@ -534,7 +540,11 @@
             <ControlTemplate TargetType="u:DefaultDialogWindow">
                 <Panel>
                     <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-                    <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+                    <Border Background="{TemplateBinding Background}"
+                            BackgroundSizing="InnerBorderEdge"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            IsHitTestVisible="False"  />
                     <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
                     <VisualLayerManager>
                         <Grid RowDefinitions="Auto, *, Auto">

@@ -63,10 +63,7 @@ public class DatePicker: DatePickerBase, IClearControl
         TextBox.TextChangedEvent.RemoveHandler(OnTextChanged, _textBox);
         PointerPressedEvent.RemoveHandler(OnTextBoxPointerPressed, _textBox);
         Button.ClickEvent.RemoveHandler(OnButtonClick, _button);
-        if (_calendar != null)
-        {
-            _calendar.DateSelected -= OnDateSelected;
-        }
+        CalendarView.DateSelectedEvent.RemoveHandler(OnDateSelected, _calendar);
         
         _button = e.NameScope.Find<Button>(PART_Button);
         e.NameScope.Find<Popup>(PART_Popup);
@@ -77,11 +74,7 @@ public class DatePicker: DatePickerBase, IClearControl
         GotFocusEvent.AddHandler(OnTextBoxGetFocus, _textBox);
         TextBox.TextChangedEvent.AddHandler(OnTextChanged, _textBox);
         PointerPressedEvent.AddHandler(OnTextBoxPointerPressed, RoutingStrategies.Tunnel, false, _textBox);
-        
-        if (_calendar != null)
-        {
-            _calendar.DateSelected += OnDateSelected;
-        }
+        CalendarView.DateSelectedEvent.AddHandler(OnDateSelected, RoutingStrategies.Bubble, true, _calendar);
         SyncSelectedDateToText(SelectedDate);
     }
 

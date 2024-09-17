@@ -12,6 +12,7 @@
         <ResourceInclude Source="Clock.axaml" />
         <ResourceInclude Source="DatePicker.axaml" />
         <ResourceInclude Source="DateRangePicker.axaml" />
+        <ResourceInclude Source="DateTimePicker.axaml" />
         <ResourceInclude Source="Dialog.axaml" />
         <ResourceInclude Source="DialogShared.axaml" />
         <ResourceInclude Source="DisableContainer.axaml" />
@@ -29,6 +30,7 @@
         <ResourceInclude Source="MessageBox.axaml" />
         <ResourceInclude Source="MultiComboBox.axaml" />
         <ResourceInclude Source="NavMenu.axaml" />
+        <ResourceInclude Source="Notification.axaml" />
         <ResourceInclude Source="NumericUpDown.axaml" />
         <ResourceInclude Source="NumPad.axaml" />
         <ResourceInclude Source="NumberDisplayer.axaml" />
@@ -46,6 +48,7 @@
         <ResourceInclude Source="TreeComboBox.axaml"/>
         <ResourceInclude Source="Skeleton.axaml" />
         <ResourceInclude Source="TwoTonePathIcon.axaml" />
+        <ResourceInclude Source="Toast.axaml" />
         <ResourceInclude Source="ToolBar.axaml" />
         <ResourceInclude Source="TimeBox.axaml"/>
         <ResourceInclude Source="UrsaView.axaml" />
