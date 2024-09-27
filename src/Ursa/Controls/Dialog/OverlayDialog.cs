@@ -15,7 +15,7 @@ public static class OverlayDialog
         if (host is null) return;
         var t = new DefaultDialogControl()
         {
-            Content = new TView(){ DataContext = vm },
+            Content = new TView(),
             DataContext = vm,
         };
         ConfigureDefaultDialogControl(t, options);
@@ -204,6 +204,7 @@ public static class OverlayDialog
             options.VerticalAnchor == VerticalPosition.Center ? null : options.VerticalOffset;
         control.IsCloseButtonVisible = options.IsCloseButtonVisible;
         control.CanLightDismiss = options.CanLightDismiss;
+        control.CanResize = options.CanResize;
         DialogControlBase.SetCanDragMove(control, options.CanDragMove);
     }
     
@@ -229,6 +230,7 @@ public static class OverlayDialog
         control.Title = options.Title;
         control.CanLightDismiss = options.CanLightDismiss;
         control.IsCloseButtonVisible = options.IsCloseButtonVisible;
+        control.CanResize = options.CanResize;
         DialogControlBase.SetCanDragMove(control, options.CanDragMove);
     }
 
